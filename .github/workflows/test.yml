@@ -14,7 +14,7 @@ jobs:
       - name: config aws creds
         uses: aws-actions/configure-aws-credentials@master
         with:
-          role-to-assume: "arn:aws:iam::548501963152:policy/example"
+          role-to-assume: "arn:aws:iam::548501963152:role/github_actions_role"
           role-session-name: test
           aws-region: us-west-2
       - name: Test creds
