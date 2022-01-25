@@ -19,7 +19,7 @@ resource "aws_iam_openid_connect_provider" "github_actions" {
 resource "aws_iam_role" "github_actions_role" {
   name = "github_actions_role"
   assume_role_policy = data.aws_iam_policy_document.github_actions_policy_doc.json
-  #managed_policy_arns = [ aws_iam_policy.example.arn ]
+  managed_policy_arns = [ aws_iam_policy.example.arn ]
 }
 
 resource "aws_iam_policy" "example" {
