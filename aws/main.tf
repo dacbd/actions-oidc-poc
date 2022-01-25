@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "github_actions_policy_doc" {
             test = "StringLike"
             variable = "token.actions.githubusercontent.com:sub"
             values = [
-                "repo:dacbd/actions-oidc-poc:ref:*"
+                "repo:dacbd/actions-oidc-poc:*"
             ]
         }
     }
