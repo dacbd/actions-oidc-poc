@@ -1,0 +1,22 @@
+name: aws odic test
+on:
+  push:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: config aws creds
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: "arn:aws:iam::548501963152:policy/example"
+          role-session-name: test
+          aws-region: us-west-2
+      - name: Test creds
+        run: aws s3 ls
+            
