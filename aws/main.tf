@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "github_actions_policy_doc" {
         #resources = [ "*" ]
         principals {
           type = "Federated"
-          identifiers = ["token.actions.githubusercontent.com"]
+          identifiers = [aws_iam_openid_connect_provider.github_actions.arn]
         }
         condition {
             test = "StringLike"
