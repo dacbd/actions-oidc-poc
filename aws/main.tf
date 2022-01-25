@@ -48,10 +48,10 @@ data "aws_iam_policy_document" "github_actions_policy_doc" {
           identifiers = ["token.actions.githubusercontent.com"]
         }
         condition {
-            test = "StringEquals"
+            test = "StringLike"
             variable = "token.actions.githubusercontent.com:sub"
             values = [
-                "repo:dacbd/actions-oidc-poc:ref:refs/heads/main"
+                "repo:dacbd/actions-oidc-poc:ref:*"
             ]
         }
     }
