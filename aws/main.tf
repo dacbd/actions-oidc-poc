@@ -13,7 +13,7 @@ provider "aws" {
 resource "aws_iam_openid_connect_provider" "github_actions" {
     url = "https://token.actions.githubusercontent.com"
     client_id_list = [ "sts.amazonaws.com" ]
-    thumbprint_list = []
+    thumbprint_list = ["15e29108718111e59b3dad31954647e3c344a231"]
 }
 
 resource "aws_iam_role" "github_actions_role" {
