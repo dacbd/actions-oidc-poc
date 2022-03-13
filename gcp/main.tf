@@ -68,5 +68,6 @@ resource "google_project_iam_custom_role" "dos" {
     "storage.objects.delete",
     "storage.objects.get",
     "storage.objects.list",
+    "storage.buckets.list",
   ]
 }
