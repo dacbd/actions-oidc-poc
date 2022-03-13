@@ -24,6 +24,9 @@ resource "google_iam_workload_identity_pool_provider" "github-actions" {
 }
 
 
+
+# TEST RESOURCES
+
 # DVC Bucket
 resource "google_storage_bucket" "dvc" {
   name = "${var.gcp_project_id}_dvc-objects"
