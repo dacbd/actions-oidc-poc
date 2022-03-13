@@ -17,4 +17,4 @@ jobs:
           workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
           service_account: 'dvc-object-storage@sandbox-342203.iam.gserviceaccount.com'
       - name: Test creds
-        run: gsutil ls
+        run: gcloud auth list
