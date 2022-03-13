@@ -2,24 +2,32 @@ provider "google" {
   project = var.gcp_project_id
   region = "us-west1"
 }
+provider "google-beta" {
+  project = var.gcp_project_id
+  region = "us-west1"
+}
+
+data "google_project" "project" {}
 
 resource "google_iam_workload_identity_pool" "pool" {
-  provider                  = google-beta
+  provider = google-beta
+  #project = var.gcp_project_id
   workload_identity_pool_id = "gh-actions-pool"
 }
 # https://github.com/google-github-actions/auth#setup
 # https://cloud.google.com/iam/docs/workload-identity-federation?_ga=2.178799844.-1125913399.1642444018#mapping
 resource "google_iam_workload_identity_pool_provider" "github-actions" {
-  provider                           = google-beta
-  workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id
+  provider = google-beta
+  #project = var.gcp_project_id
+  workload_identity_pool_id = google_iam_workload_identity_pool.pool.workload_identity_pool_id
   workload_identity_pool_provider_id = "github-actions"
-  attribute_mapping                  = {
+  attribute_mapping = {
     "google.subject" = "assertion.sub"
     "attribute.actor" = "assertion.actor"
     "attribute.repository" = "assertion.repository"
   }
   oidc {
-    issuer_uri        = "https://token.actions.githubusercontent.com"
+    issuer_uri = "https://token.actions.githubusercontent.com"
   }
 }
 
@@ -48,7 +56,7 @@ data "google_iam_policy" "dos" {
   }
   binding {
     role = "roles/iam.workloadIdentityUser"
-    members = ["principalSet:${google_iam_workload_identity_pool.pool.workload_identity_pool_id}/attribute.repository/${var.my_repo}"]
+    members = ["principalSet://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool_provider.github-actions.workload_identity_pool_id}/attribute.repository/${var.my_repo}"]
   }
 }
 resource "google_project_iam_custom_role" "dos" {
